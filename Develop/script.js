@@ -57,5 +57,4 @@ var saveSchedule = function () {
 //     });
 //   }, (1000 * 60));
 
-
 loadSchedule();
