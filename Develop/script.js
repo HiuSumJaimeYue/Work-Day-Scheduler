@@ -7,6 +7,7 @@ var schedule = [];
 var createSchedule = function (time, text) {
     var specficInputEl;
 
+    //find the right input box to put in the text
     $(".input-group").each(function (index, el) {
         var elTime = $(el)
             .find("span")
@@ -16,7 +17,6 @@ var createSchedule = function (time, text) {
             specficInputEl = el;
         }
     });
-
 
     specficInputEl.querySelector('input').value = text;
 
