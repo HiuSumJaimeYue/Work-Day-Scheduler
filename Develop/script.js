@@ -39,23 +39,24 @@ var auditSchedule = function (scheduleEl) {
       .find("span")
       .text()
       .trim();
-      console.log(time);
-    // var time = "10:00PM";
 
     // convert to moment object at 5:00pm
-    var currentTime = moment().add(2, "hours");
-    console.log(currentTime);
+    //moment().subtract(13, "hours");
+    var currentTime = moment(time, 'Ha');
+    // var currentTime = moment().subtract(13, "hours");
+    // console.log(currentTime);
     // remove any old classes from element
     // $(scheduleEl).removeClass("list-group-item-warning list-group-item-danger");
 
     // apply new class if task is near/over due date
     if (moment().isAfter(currentTime)) {
-        inputEl.addClass("future");
+        inputEl.addClass("past");
         console.log("after");
-        console.log(taskEl);
+    }else if(moment().isSame(currentTime)){
+        inputEl.addClass("present");
     } else if (moment().isBefore(currentTime)) {
         //Math.abs(moment().diff(time, "days")) <= 2
-        inputEl.addClass("past");
+        inputEl.addClass("future");
     }
 };
 
@@ -66,7 +67,7 @@ var auditSchedule = function (scheduleEl) {
 //     var workTime = 12;//get id?
 
 //     if (workText) {
-//         createSchedule(workText);//CSS?
+//         createSchedule(workTime, workText);//CSS?
 
 //         // save in schedule array
 //         schedule.push({
@@ -79,10 +80,12 @@ var auditSchedule = function (scheduleEl) {
 // });
 
 //Check every minute, so can check if the hour has passed
-// setInterval(function () {
-//     $(".input-group").each(function(index, el) {
-//       auditSchedule(el);
-//     });
-//   }, 10000);//(1000 * 60)
+var auditInterval = function () {
+    $(".input-group").each(function(index, el) {
+      auditSchedule(el);
+    });
+}
 
 loadSchedule();
+auditInterval();
+setInterval(auditInterval, 10000);//(1000 * 60)
