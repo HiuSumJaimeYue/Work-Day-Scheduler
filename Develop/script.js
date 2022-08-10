@@ -51,22 +51,15 @@ var auditSchedule = function (scheduleEl) {
         .text()
         .trim();
 
-    // convert to moment object at 5:00pm
-    //moment().subtract(13, "hours");
-    var currentTime = moment(time, 'Ha');
-    // var currentTime = moment().subtract(13, "hours");
-    // console.log(currentTime);
-    // remove any old classes from element
-    // $(scheduleEl).removeClass("list-group-item-warning list-group-item-danger");
+    var currentTime = moment(time, 'HA');
+    var presentTime = moment().format("HA");
 
     // apply new class if task is near/over due date
-    if (moment().isAfter(currentTime)) {
-        inputEl.addClass("past");
-        console.log("after");
-    } else if (moment().isSame(currentTime)) {
+    if (presentTime === time) {
         inputEl.addClass("present");
+    } else if (moment().isAfter(currentTime)) {
+        inputEl.addClass("past");
     } else if (moment().isBefore(currentTime)) {
-        //Math.abs(moment().diff(time, "days")) <= 2
         inputEl.addClass("future");
     }
 };
