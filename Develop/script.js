@@ -54,7 +54,7 @@ var auditSchedule = function (scheduleEl) {
     var currentTime = moment(time, 'HA');
     var presentTime = moment().format("HA");
 
-    // apply new class if task is near/over due date
+    // apply new class if schedule is present, past or future
     if (presentTime === time) {
         inputEl.addClass("present");
     } else if (moment().isAfter(currentTime)) {
@@ -63,43 +63,6 @@ var auditSchedule = function (scheduleEl) {
         inputEl.addClass("future");
     }
 };
-
-// input was clicked
-// $(".input-group").on("click", "input", function () {
-//     // get current text
-//     var newText = $(this).text().trim();
-
-//     // create new input element
-//     var textInput = $("<input>").attr("type", "text").addClass("form-control").val(newText);
-
-//     $(this).replaceWith(textInput);
-
-//     // automatically bring up the calendar
-//     textInput.trigger("focus");
-//   });
-
-// value of due date was changed
-// $(".input-group").on("blur", "input[type='text']", function () {
-// get current value of input
-// var text = $(this).val();
-
-// get time
-// var time = $(this)
-//     .closest(".input-group").find("span")
-//     .text()
-//     .trim();
-// console.log(time);
-//   var index = $(this)
-//     .closest(".list-group-item")
-//     .index();
-
-// update task in array and re-save to localstorage
-//   tasks[status][index].text = text;
-//   saveTasks();
-
-//change value of input
-
-// });
 
 // save button was clicked
 $(".saveBtn").click(function () {
