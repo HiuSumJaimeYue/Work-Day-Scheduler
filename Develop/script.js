@@ -76,17 +76,26 @@ $(".saveBtn").click(function () {
 
     //avoid saving the same obj multiple times
     var oldText = schedule.filter(el => el.time === workTime);
+    var oldTextObj;
     if (oldText.length != 0) {
+        var oldTextObj = oldText[0];
         oldText = oldText[0].work;
     }
 
     if (oldText != workText) {
         createSchedule(workTime, workText);
-        // save in schedule array
-        schedule.push({
-            time: workTime,
-            work: workText
-        });
+        console.log(oldText);
+        if (oldText.length != 0) { 
+            console.log(oldText);
+            oldTextObj.work = workText;
+        } else {
+            // save in schedule array
+            schedule.push({
+                time: workTime,
+                work: workText
+            });
+        }
+
 
         saveSchedule();
     }
