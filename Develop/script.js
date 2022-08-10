@@ -31,6 +31,34 @@ var saveSchedule = function () {
     localStorage.setItem("schedule", JSON.stringify(schedule));
 };
 
+var auditSchedule = function (scheduleEl) {
+    var inputEl = $(scheduleEl).find("input");
+    console.log(inputEl);
+    // get date from Schedule element
+    var time = $(scheduleEl)
+      .find("span")
+      .text()
+      .trim();
+      console.log(time);
+    // var time = "10:00PM";
+
+    // convert to moment object at 5:00pm
+    var currentTime = moment().add(2, "hours");
+    console.log(currentTime);
+    // remove any old classes from element
+    // $(scheduleEl).removeClass("list-group-item-warning list-group-item-danger");
+
+    // apply new class if task is near/over due date
+    if (moment().isAfter(currentTime)) {
+        inputEl.addClass("future");
+        console.log("after");
+        console.log(taskEl);
+    } else if (moment().isBefore(currentTime)) {
+        //Math.abs(moment().diff(time, "days")) <= 2
+        inputEl.addClass("past");
+    }
+};
+
 // save button was clicked
 // $(".btn-save").click(function () {
 //     // get form values
@@ -52,9 +80,9 @@ var saveSchedule = function () {
 
 //Check every minute, so can check if the hour has passed
 // setInterval(function () {
-//     $(".time-block").each(function(index, el) {
-//       auditTask(el);
+//     $(".input-group").each(function(index, el) {
+//       auditSchedule(el);
 //     });
-//   }, (1000 * 60));
+//   }, 10000);//(1000 * 60)
 
 loadSchedule();
