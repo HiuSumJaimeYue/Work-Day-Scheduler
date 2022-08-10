@@ -101,4 +101,4 @@ var auditInterval = function () {
 
 loadSchedule();
 auditInterval();
-// setInterval(auditInterval, 10000);//(1000 * 60)
+setInterval(auditInterval, (1000 * 60));
