@@ -20,18 +20,17 @@ var createSchedule = function (time, text) {
 
     specficInputEl.querySelector('input').value = text;
 
-    // check due date
+    // check schedule and time
     auditSchedule(specficInputEl);
 };
 
 var loadSchedule = function () {
     newSchedule = JSON.parse(localStorage.getItem("schedule"));
 
-    // if nothing in localStorage, create a new object to track all task status arrays
+    // if nothing in localStorage, create a new array to keep track
     if (!newSchedule) {
         newSchedule = [];
     }
-    console.log(newSchedule);
 
     for (var i = 0; i < newSchedule.length; i++) {
         schedule.push(newSchedule[i]);
@@ -111,7 +110,6 @@ var auditSchedule = function (scheduleEl) {
 
 // save button was clicked
 $(".saveBtn").click(function () {
-    
     // get new Text
     var workText = $(this)
         .closest(".input-group").find('input').val();
@@ -119,15 +117,15 @@ $(".saveBtn").click(function () {
         .closest(".input-group").find("span")
         .text()
         .trim();
-    
+
     //avoid saving the same obj multiple times
     var oldText = schedule.filter(el => el.time === workTime);
-    if (oldText.length != 0){
+    if (oldText.length != 0) {
         oldText = oldText[0].work;
     }
 
     if (oldText != workText) {
-        createSchedule(workTime, workText); 
+        createSchedule(workTime, workText);
         // save in schedule array
         schedule.push({
             time: workTime,
