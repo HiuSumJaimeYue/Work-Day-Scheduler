@@ -14,12 +14,12 @@ Deployed application: https://hiusumjaimeyue.github.io/Work-Day-Scheduler/
 Github repository: https://github.com/HiuSumJaimeYue/Work-Day-Scheduler
 
 Screenshot of the web application is included below.        
-![Work-Day-Scheduler Preview](website of jpeg "Work-Day-Scheduler Preview")  
-![Work-Day-Scheduler2 Preview](website of jpeg "Work-Day-Scheduler2 Preview")  
+![Work-Day-Scheduler Preview](https://github.com/HiuSumJaimeYue/Work-Day-Scheduler/blob/main/screenshots/workDayScheduler1.jpg "Work-Day-Scheduler Preview")  
+![Work-Day-Scheduler2 Preview](https://github.com/HiuSumJaimeYue/Work-Day-Scheduler/blob/main/screenshots/workDayScheduler2.jpg "Work-Day-Scheduler2 Preview")  
 
 
 New or changes:     
-Added Date to header of web application
-Added time blocks with time and save button
-Added schedule to localStorage
-Add script.js to create interactive elements
+Added Date to header of web application                     
+Added time blocks with time and save button                             
+Added schedule to localStorage                        
+Add script.js to create interactive elements                
