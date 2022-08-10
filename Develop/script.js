@@ -2,29 +2,41 @@ var currentDay = document.querySelector("#currentDay");
 var currentDate = moment().format('dddd, MMMM Do');
 currentDay.textContent = currentDate;
 
-var schedule = {};
+var schedule = [];
+
+var createSchedule = function (time, text) {
+    var specficInputEl;
+
+    $(".input-group").each(function (index, el) {
+        var elTime = $(el)
+            .find("span")
+            .text()
+            .trim();
+        if (elTime === time) {
+            specficInputEl = el;
+        }
+    });
+
+
+    specficInputEl.querySelector('input').value = text;
+
+    // check due date
+    auditSchedule(specficInputEl);
+};
 
 var loadSchedule = function () {
-    schedule = JSON.parse(localStorage.getItem("schedule"));
+    newSchedule = JSON.parse(localStorage.getItem("schedule"));
 
     // if nothing in localStorage, create a new object to track all task status arrays
-    if (!schedule) {
-        schedule = {
-            AM9: null,
-            AM10: null,
-            AM11: null, PM12: null, PM1: null, PM2: null, PM3: null, PM4: null, PM5: null
-        };
+    if (!newSchedule) {
+        newSchedule = [];
     }
-    console.log(schedule);
+    console.log(newSchedule);
 
-    // loop over object properties
-    // $.each(tasks, function (list, arr) {
-    //     console.log(list, arr);
-    //     // then loop over sub-array
-    //     Array.from(arr).forEach(task => {
-    //         createSchedule();
-    //     });
-    // });
+    for (var i = 0; i < newSchedule.length; i++) {
+        schedule.push(newSchedule[i]);
+        createSchedule(newSchedule[i].time, newSchedule[i].work);
+    }
 };
 
 var saveSchedule = function () {
@@ -33,12 +45,12 @@ var saveSchedule = function () {
 
 var auditSchedule = function (scheduleEl) {
     var inputEl = $(scheduleEl).find("input");
-    console.log(inputEl);
+
     // get date from Schedule element
     var time = $(scheduleEl)
-      .find("span")
-      .text()
-      .trim();
+        .find("span")
+        .text()
+        .trim();
 
     // convert to moment object at 5:00pm
     //moment().subtract(13, "hours");
@@ -52,7 +64,7 @@ var auditSchedule = function (scheduleEl) {
     if (moment().isAfter(currentTime)) {
         inputEl.addClass("past");
         console.log("after");
-    }else if(moment().isSame(currentTime)){
+    } else if (moment().isSame(currentTime)) {
         inputEl.addClass("present");
     } else if (moment().isBefore(currentTime)) {
         //Math.abs(moment().diff(time, "days")) <= 2
@@ -60,32 +72,79 @@ var auditSchedule = function (scheduleEl) {
     }
 };
 
-// save button was clicked
-// $(".btn-save").click(function () {
-//     // get form values
-//     var workText = $("#modalTaskDescription").val();//need to check event target
-//     var workTime = 12;//get id?
+// input was clicked
+// $(".input-group").on("click", "input", function () {
+//     // get current text
+//     var newText = $(this).text().trim();
 
-//     if (workText) {
-//         createSchedule(workTime, workText);//CSS?
+//     // create new input element
+//     var textInput = $("<input>").attr("type", "text").addClass("form-control").val(newText);
 
-//         // save in schedule array
-//         schedule.push({
-//             time: workTime,
-//             work: workText
-//         });
+//     $(this).replaceWith(textInput);
 
-//         saveSchedule();
-//     }
+//     // automatically bring up the calendar
+//     textInput.trigger("focus");
+//   });
+
+// value of due date was changed
+// $(".input-group").on("blur", "input[type='text']", function () {
+// get current value of input
+// var text = $(this).val();
+
+// get time
+// var time = $(this)
+//     .closest(".input-group").find("span")
+//     .text()
+//     .trim();
+// console.log(time);
+//   var index = $(this)
+//     .closest(".list-group-item")
+//     .index();
+
+// update task in array and re-save to localstorage
+//   tasks[status][index].text = text;
+//   saveTasks();
+
+//change value of input
+
 // });
+
+// save button was clicked
+$(".saveBtn").click(function () {
+    
+    // get new Text
+    var workText = $(this)
+        .closest(".input-group").find('input').val();
+    var workTime = $(this)
+        .closest(".input-group").find("span")
+        .text()
+        .trim();
+    
+    //avoid saving the same obj multiple times
+    var oldText = schedule.filter(el => el.time === workTime);
+    if (oldText.length != 0){
+        oldText = oldText[0].work;
+    }
+
+    if (oldText != workText) {
+        createSchedule(workTime, workText); 
+        // save in schedule array
+        schedule.push({
+            time: workTime,
+            work: workText
+        });
+
+        saveSchedule();
+    }
+});
 
 //Check every minute, so can check if the hour has passed
 var auditInterval = function () {
-    $(".input-group").each(function(index, el) {
-      auditSchedule(el);
+    $(".input-group").each(function (index, el) {
+        auditSchedule(el);
     });
 }
 
 loadSchedule();
 auditInterval();
-setInterval(auditInterval, 10000);//(1000 * 60)
+// setInterval(auditInterval, 10000);//(1000 * 60)
