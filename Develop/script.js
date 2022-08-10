@@ -74,7 +74,7 @@ $(".saveBtn").click(function () {
         .text()
         .trim();
 
-    //avoid saving the same obj multiple times
+    //avoid saving the same object multiple times
     var oldText = schedule.filter(el => el.time === workTime);
     var oldTextObj;
     if (oldText.length != 0) {
@@ -84,9 +84,9 @@ $(".saveBtn").click(function () {
 
     if (oldText != workText) {
         createSchedule(workTime, workText);
-        console.log(oldText);
-        if (oldText.length != 0) { 
-            console.log(oldText);
+
+        if (oldText.length != 0) {
+            //Change the work of existing object
             oldTextObj.work = workText;
         } else {
             // save in schedule array
