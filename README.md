@@ -13,7 +13,7 @@ Starter code from https://github.com/coding-boot-camp/super-disco
 Deployed application: https://hiusumjaimeyue.github.io/Work-Day-Scheduler/        
 Github repository: https://github.com/HiuSumJaimeYue/Work-Day-Scheduler
 
-Screenshot of the web application is included below.        
+Screenshots of the web application is included below.        
 ![Work-Day-Scheduler Preview](https://github.com/HiuSumJaimeYue/Work-Day-Scheduler/blob/main/screenshots/workDayScheduler1.jpg "Work-Day-Scheduler Preview")  
 ![Work-Day-Scheduler2 Preview](https://github.com/HiuSumJaimeYue/Work-Day-Scheduler/blob/main/screenshots/workDayScheduler2.jpg "Work-Day-Scheduler2 Preview")  
 
